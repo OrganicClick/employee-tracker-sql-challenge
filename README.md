@@ -101,6 +101,8 @@ Development was assisted by the following resources:
  - Xpert Learning Assistant provided by the GWU Coding Boot Camp
  - Project guidelines, initial screenshots, reference mock-up, and accepted terms of submission provided by GWU Coding Boot Camp
  - Reference for correcting the package.json file type (https://nodejs.org/api/packages.html)
+ - Installation documentation for MySQL2 (https://www.npmjs.com/package/mysql2#installation)
+ 
 
 ## Contact
 To contact the owner of this repo, OrganicClick, please reach out via OrganicClick@exampleemail.com
