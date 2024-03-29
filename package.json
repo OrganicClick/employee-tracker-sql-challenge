@@ -1,0 +1,23 @@
+{
+  "name": "employee-tracker-sql-challenge",
+  "version": "1.0.0",
+  "description": "Employee tracker sql application",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OrganicClick/employee-tracker-sql-challenge.git"
+  },
+  "keywords": [
+    "employee",
+    "tracker"
+  ],
+  "author": "OrganicClick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OrganicClick/employee-tracker-sql-challenge/issues"
+  },
+  "homepage": "https://github.com/OrganicClick/employee-tracker-sql-challenge#readme"
+}
