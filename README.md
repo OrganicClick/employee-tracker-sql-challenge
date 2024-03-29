@@ -103,6 +103,7 @@ Development was assisted by the following resources:
  - Project guidelines, initial screenshots, reference mock-up, and accepted terms of submission provided by GWU Coding Boot Camp
  - Reference for correcting the package.json file type (https://nodejs.org/api/packages.html)
  - Installation documentation for MySQL2 (https://www.npmjs.com/package/mysql2#installation)
+ - Setting Up a Database and Seed File (https://medium.com/@shannen.ye/setting-up-a-database-and-seed-file-7e73fe2a9fe6)
 
 
 ## Contact
