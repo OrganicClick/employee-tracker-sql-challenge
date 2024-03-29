@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/OrganicClick/employee-tracker-sql-challenge/issues"
   },
-  "homepage": "https://github.com/OrganicClick/employee-tracker-sql-challenge#readme"
+  "homepage": "https://github.com/OrganicClick/employee-tracker-sql-challenge#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
 }
