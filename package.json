@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/OrganicClick/employee-tracker-sql-challenge#readme",
   "dependencies": {
+    "express": "^4.19.2",
     "inquirer": "^8.2.4",
     "mysql2": "^3.9.3"
   }
