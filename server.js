@@ -13,17 +13,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Connect to database
-const db = mysql.createConnection(
-  {
-    host: 'localhost',
-    // MySQL username,
-    user: 'root',
-    // MySQL password
-    password: '',
-    database: 'employeeTracker_db'
-  },
-  console.log(`Connected to the employeeTracker_db database.`)
-);
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
+});
+
+console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
+
 
 /* inquirer
   .prompt([
