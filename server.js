@@ -91,11 +91,11 @@ const { choice } = await inquirer.prompt({
 return choice;
 }
 
-/* async function run() {
-  let userChoice = '';
+async function run() {
+  let userChoice = ''; // Initialize userChoice variable
 
-  while (userChoice !== 'exit') {
-    userChoice = await mainMenu();
+  while (userChoice !== 'exit') { // Loop until user chooses to exit, UPDATE THIS SO THAT USER DOESN'T CYCLE OPTIONS INFINITELY
+    userChoice = await mainMenu(); // Get user choice from main menu function
 
     // Handle user choice here
     switch (userChoice) {
@@ -139,7 +139,7 @@ return choice;
         console.log('Invalid choice');
     }
   }
-} */
+}
 
 run();
 
