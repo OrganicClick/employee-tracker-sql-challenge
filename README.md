@@ -106,6 +106,7 @@ Development was assisted by the following resources:
  - Setting Up a Database and Seed File (https://medium.com/@shannen.ye/setting-up-a-database-and-seed-file-7e73fe2a9fe6)
  - Installation/usage documentation for dotenv package (https://www.npmjs.com/package/dotenv)
  - General documentation for inquirer package (https://www.npmjs.com/package/inquirer)
+ - Referenced for using async functions for inquirer.js (https://stackoverflow.com/questions/61417816/how-do-i-invoke-inquirer-js-menu-in-a-loop-using-promises)
 
 
 ## Contact
