@@ -12,6 +12,8 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+
+// CONNECTION.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
 // Connect to database
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -22,6 +24,7 @@ const db = mysql.createConnection({
 
 console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
 
+// CONNECTION QUERIES.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
 
 /* inquirer
   .prompt([
