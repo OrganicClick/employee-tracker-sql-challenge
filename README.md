@@ -73,7 +73,6 @@ THEN I am prompted to select an employee to update and their new role and this i
 5. Run the application from the command line:
    - node server.js
 
-*** UPDATE MEEEE******
 
 
 ## Contributing
@@ -120,7 +119,7 @@ Development was assisted by the following resources:
  - Installation/usage documentation for dotenv package (https://www.npmjs.com/package/dotenv)
  - General documentation for inquirer package (https://www.npmjs.com/package/inquirer)
  - Referenced for using async functions for inquirer.js (https://stackoverflow.com/questions/61417816/how-do-i-invoke-inquirer-js-menu-in-a-loop-using-promises)
-
+ - Referenced for resetting root mysql password (https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11)
 
 ## Contact
 To contact the owner of this repo, OrganicClick, please reach out via OrganicClick@exampleemail.com
