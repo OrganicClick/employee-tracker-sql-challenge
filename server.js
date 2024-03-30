@@ -26,20 +26,57 @@ console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
 
 // CONNECTION QUERIES.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
 
-/* inquirer
-  .prompt([
-    /* Pass your questions in here */
-  /*])
-  /* .then((answers) => {
-    // Use user feedback for... whatever!!
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
-    }
-  }); */
+async function mainMenu() {
+  const menuOptions = [
+    {
+      name: 'View departments',
+      value: 'viewDepartments',
+    },
+    {
+      name: 'View roles',
+      value: 'viewRoles',
+    },
+    {
+      name: 'View employees',
+      value: 'viewEmployees',
+    },
+    {
+      name: 'Add department',
+      value: 'addDepartment',
+    },
+    {
+      name: 'Add role',
+      value: 'addRole',
+    },
+    {
+      name: 'Add employee',
+      value: 'addEmployee',
+    },
+    {
+      name: 'Update employee role',
+      value: 'updateEmployeeRole',
+    },
+    {
+      name: 'Update employee manager',
+      value: 'updateEmployeeManager',
+    },
+    {
+      name: 'Delete department',
+      value: 'deleteDepartment',
+    },
+    {
+      name: 'Delete role',
+      value: 'deleteRole',
+    },
+    {
+      name: 'Delete employee',
+      value: 'deleteEmployee',
+    },
+    {
+      name: 'Exit',
+      value: 'exit',
+    },
+  ];
 
 
   // Default response for any other request (Not Found)
