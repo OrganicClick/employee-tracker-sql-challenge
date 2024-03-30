@@ -1,11 +1,9 @@
-// Import and require express
-const express = require('express');
 
-// Import and require mysql2
-const mysql = require('mysql2');
+const express = require('express'); // Import and require express
+const mysql = require('mysql2'); // Import and require mysql2
+const inquirer = require('inquirer'); // Import and require inquirer
+require('dotenv').config(); // Load environment variables from .env file
 
-// Import and require inquirer
-const inquirer = require('inquirer');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
