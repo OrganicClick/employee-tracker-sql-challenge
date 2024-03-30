@@ -24,6 +24,15 @@ const db = mysql.createConnection({
 
 console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
 
+// Attempt to establish the database connection
+db.connect((err) => {
+  if (err) {
+    console.log('Error connecting to the database:', err);
+    return;
+  }
+  console.log('Connected to the database.');
+});
+
 // CONNECTION QUERIES.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
 
 // Menu of user options to interact with employeeTracker_db
