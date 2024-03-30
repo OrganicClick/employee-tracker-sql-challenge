@@ -57,8 +57,20 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 ## Usage
 
-1. Run the application from the command line:
-   - node index.js
+1. Be sure to create the database named 'employeeTracker_db' as specified in the server code. This is done by first
+ accessing MySQL using the 'mysql' command:
+   - mysql -u your_username -p
+
+2. Once logged in, run the following SQL command to create the database:
+   - CREATE DATABASE employeeTracker_db;
+
+3. Exit MySQL
+
+4. Now, set the .env variables (i.e. 'DB_HOST', 'DB_USER', 'DB_PASSWORD', and 'DB_DATABASE') to match the MySQL server
+   configuration. In this case, you will likely need to adjust the DB_USER and DB_PASSWORD values to match your MySQL login credentials.
+
+5. Run the application from the command line:
+   - node server.js
 
 *** UPDATE MEEEE******
 
