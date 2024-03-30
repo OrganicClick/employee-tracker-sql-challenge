@@ -26,6 +26,7 @@ console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
 
 // CONNECTION QUERIES.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
 
+// Menu of user options to interact with employeeTracker_db
 async function mainMenu() {
   const menuOptions = [
     {
@@ -77,6 +78,17 @@ async function mainMenu() {
       value: 'exit',
     },
   ];
+
+// Prompt the user with a list of options and await their choice
+const { choice } = await inquirer.prompt({
+  type: 'list', // Use the list prompt type to display options as a list
+  name: 'choice', // Name of the property to store the user's choice
+  message: 'What would you like to do?', // Message displayed to the user
+  choices: menuOptions, // Array of menu options
+});
+
+// Return the user's choice
+return choice;
 
 
   // Default response for any other request (Not Found)
