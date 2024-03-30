@@ -91,6 +91,58 @@ const { choice } = await inquirer.prompt({
 return choice;
 }
 
+/* async function run() {
+  let userChoice = '';
+
+  while (userChoice !== 'exit') {
+    userChoice = await mainMenu();
+
+    // Handle user choice here
+    switch (userChoice) {
+      case 'viewDepartments':
+        // Implement logic to view departments
+        break;
+      case 'viewRoles':
+        // Implement logic to view roles
+        break;
+      case 'viewEmployees':
+        // Implement logic to view employees
+        break;
+      case 'addDepartment':
+        // Implement logic to add a department
+        break;
+      case 'addRole':
+        // Implement logic to add a role
+        break;
+      case 'addEmployee':
+        // Implement logic to add an employee
+        break;
+      case 'updateEmployeeRole':
+        // Implement logic to update employee role
+        break;
+      case 'updateEmployeeManager':
+        // Implement logic to update employee manager
+        break;
+      case 'deleteDepartment':
+        // Implement logic to delete a department
+        break;
+      case 'deleteRole':
+        // Implement logic to delete a role
+        break;
+      case 'deleteEmployee':
+        // Implement logic to delete an employee
+        break;
+      case 'exit':
+        console.log('Exiting...');
+        break;
+      default:
+        console.log('Invalid choice');
+    }
+  }
+} */
+
+run();
+
   // Default response for any other request (Not Found)
 app.use((req, res) => {
   res.status(404).end();
