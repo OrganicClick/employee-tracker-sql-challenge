@@ -89,7 +89,7 @@ const { choice } = await inquirer.prompt({
 
 // Return the user's choice
 return choice;
-
+}
 
   // Default response for any other request (Not Found)
 app.use((req, res) => {
