@@ -73,10 +73,6 @@ async function mainMenu() {
       name: 'Delete employee',
       value: 'deleteEmployee',
     },
-    {
-      name: 'Exit',
-      value: 'exit',
-    },
   ];
 
 // Prompt the user with a list of options and await their choice
@@ -131,9 +127,6 @@ async function run() {
         break;
       case 'deleteEmployee':
         // Implement logic to delete an employee
-        break;
-      case 'exit':
-        console.log('Exiting...');
         break;
       default:
         console.log('Invalid choice');
