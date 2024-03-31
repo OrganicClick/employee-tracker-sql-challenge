@@ -67,6 +67,9 @@ THEN I am prompted to select an employee to update and their new role and this i
 3. Once logged in, run the following SQL command to create the database:
    - CREATE DATABASE employeeTracker_db;
 
+4. Run the following SQL command to load the schema.sql file
+   - SOURCE path/to/schema.sql
+
 4. Exit MySQL
 
 

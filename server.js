@@ -27,10 +27,10 @@ console.log(`Connected to the ${process.env.DB_DATABASE} database.`);
 // Attempt to establish the database connection
 db.connect((err) => {
   if (err) {
-    console.log('Error connecting to the database:', err);
-    return;
+    console.error('Error connecting to the database:', err);
+  } else {
+    console.log('Connected to the database.');
   }
-  console.log('Connected to the database.');
 });
 
 // CONNECTION QUERIES.JS FILE BELOW -- TO BE MODULARIZED AND SEPARATED INTO ITS OWN FILE LATER
@@ -96,16 +96,27 @@ const { choice } = await inquirer.prompt({
 return choice;
 }
 
+async function viewDepartments() {
+  try {
+    const [rows] = await db.promise().query('SELECT * FROM department');
+    console.log('Department Table:');
+    console.table(rows);
+  } catch (error) {
+    console.error('Error viewing department table:', error);
+  }
+}
+
 async function run() {
   let userChoice = ''; // Initialize userChoice variable
 
-  while (userChoice !== 'exit') { // Loop until user chooses to exit, UPDATE THIS SO THAT USER DOESN'T CYCLE OPTIONS INFINITELY
-    userChoice = await mainMenu(); // Get user choice from main menu function
+    // Get user choice from main menu function
+    userChoice = await mainMenu(); 
 
     // Handle user choice here
     switch (userChoice) {
       case 'viewDepartments':
         // Implement logic to view departments
+        await viewDepartments(); // Call viewDepartments function
         break;
       case 'viewRoles':
         // Implement logic to view roles
@@ -141,9 +152,9 @@ async function run() {
         console.log('Invalid choice');
     }
   }
-}
 
 run();
+
 
   // Default response for any other request (Not Found)
 app.use((req, res) => {
