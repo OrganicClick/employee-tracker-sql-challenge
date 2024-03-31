@@ -124,6 +124,7 @@ Development was assisted by the following resources:
  - Referenced for using async functions for inquirer.js (https://stackoverflow.com/questions/61417816/how-do-i-invoke-inquirer-js-menu-in-a-loop-using-promises)
  - Referenced for resetting root mysql password (https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11)
  - Using Javascript Switch statements, including break and case (https://www.w3schools.com/js/js_switch.asp)
+ - Referenced for syntax/structure of node.js functions for MySQL actions (e.g. Viewing, adding, deleting entries/tables from database) (https://github.com/EdenKhaos/12-mysql-employee-tracker/blob/master/server.js)
 
 ## Contact
 To contact the owner of this repo, OrganicClick, please reach out via OrganicClick@exampleemail.com
