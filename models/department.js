@@ -8,12 +8,8 @@ async function viewDepartments() {
       console.error('Error viewing department table:', error);
     }
   }
-/* Add a new department to the department table*/
-
-/* Delete a department from the department table*/
-
-/* View all employees within a department in the department table*/
-
+/* Add a new department to the department table. Needs to provide user with prompt
+asking what they want the new department name to be*/
 
   // Function to handle adding a department
   async function addDepartment() {
@@ -21,8 +17,17 @@ async function viewDepartments() {
     // Add the new department to the database
   }
 
+/* Delete a department from the department table. Needs to provide user with prompt or list of options
+to select and run delete on*/
+  async function deleteDepartment() {
+
+  }
+/* View all employees within a department in the department table*/
+
+
   // Export the functions to make them accessible from other files
 module.exports = {
     viewDepartments,
-    addDepartment
+    addDepartment,
+    deleteDepartment,
 };
