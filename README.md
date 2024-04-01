@@ -76,6 +76,9 @@ THEN I am prompted to select an employee to update and their new role and this i
 5. Run the application from the command line:
    - node server.js
 
+6. To terminate the application, select "Exit" from the menu of options
+
+7. Currently, you will need to clear the line of your CLI in order to end the session of node.js server and restart the server by running "node server.js" to restart the application.
 
 
 ## Contributing
