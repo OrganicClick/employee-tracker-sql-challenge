@@ -9,13 +9,13 @@ USE employeeTracker_db;
 
 -- Create a table named department
 CREATE TABLE department (
-    id INT PRIMARY KEY,             -- Unique identifier
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incremented unique identifier
     department_name VARCHAR(30) NOT NULL -- Name of the department
 );
 
 -- Create a table named role
 CREATE TABLE role (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incremented unique identifier
     title VARCHAR(30) NOT NULL,     -- Title of the role
     salary DECIMAL NOT NULL,        -- Salary associated with the role
     department_id INT               -- Reference to department
@@ -23,7 +23,7 @@ CREATE TABLE role (
 
 -- Create a table named employee
 CREATE TABLE employee (
-    id INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incremented unique identifier
     first_name VARCHAR(30) NOT NULL,-- First name of the employee
     last_name VARCHAR(30) NOT NULL, -- Last name of the employee
     role_id INT,                    -- Reference to role
