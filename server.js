@@ -114,6 +114,16 @@ async function viewEmployees() {
   } catch (error) {
     console.error('Error viewing employee table:', error);
   }
+}
+
+async function viewRoles() {
+  try {
+    const [rows] = await db.promise().query('SELECT * FROM role');
+    console.log('Roles Table:');
+    console.table(rows);
+  } catch (error) {
+    console.error('Error viewing role table:', error);
+  }
 }  
 
 async function run() {
@@ -130,6 +140,7 @@ async function run() {
         break;
       case 'viewRoles':
         // Implement logic to view roles
+        await viewRoles(); // Call viewRoles function
         break;
       case 'viewEmployees':
         // Implement logic to view employees
