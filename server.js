@@ -106,6 +106,16 @@ async function viewDepartments() {
   }
 }
 
+async function viewEmployees() {
+  try {
+    const [rows] = await db.promise().query('SELECT * FROM employee');
+    console.log('Employee Table:');
+    console.table(rows);
+  } catch (error) {
+    console.error('Error viewing employee table:', error);
+  }
+}  
+
 async function run() {
   let userChoice = ''; // Initialize userChoice variable
 
@@ -123,6 +133,7 @@ async function run() {
         break;
       case 'viewEmployees':
         // Implement logic to view employees
+        await viewEmployees(); // Call viewEmployees function
         break;
       case 'addDepartment':
         // Implement logic to add a department
