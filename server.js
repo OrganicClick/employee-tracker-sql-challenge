@@ -149,6 +149,37 @@ async function addDepartment() {
   }
 }
 
+// Function to handle deleting a department
+async function deleteDepartment() {
+  try {
+    // Retrieve existing departments from the database
+    const [departments] = await db.promise().query('SELECT id, department_name FROM department');
+
+    // Extract department names from the result
+    const departmentNames = departments.map(department => department.department_name);
+
+    // Prompt the user to select a department to delete
+    const { departmentName } = await inquirer.prompt({
+      type: 'list',
+      name: 'departmentName',
+      message: 'Select the department to delete:',
+      choices: departmentNames,
+    });
+
+    // Find the ID of the selected department
+    const selectedDepartment = departments.find(department => department.department_name === departmentName);
+    const departmentId = selectedDepartment.id;
+
+    // Delete the selected department from the database
+    await db.promise().query('DELETE FROM department WHERE id = ?', [departmentId]);
+
+    console.log(`Department '${departmentName}' deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting department:', error);
+  }
+}
+
+
 async function run() {
   let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
 
@@ -190,6 +221,7 @@ async function run() {
         break;
       case 'deleteDepartment':
         // Implement logic to delete a department
+        await deleteDepartment() // Call deleteDepartment function
         break;
       case 'deleteRole':
         // Implement logic to delete a role
