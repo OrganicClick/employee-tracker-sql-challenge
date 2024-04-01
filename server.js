@@ -82,6 +82,10 @@ async function mainMenu() {
       name: 'Delete employee',
       value: 'deleteEmployee',
     },
+    {
+      name: 'Exit', // Add an 'Exit' option
+      value: 'exit', // Set the value to 'exit'
+    },
   ];
 
 // Prompt the user with a list of options and await their choice
@@ -127,7 +131,10 @@ async function viewRoles() {
 }  
 
 async function run() {
-  let userChoice = ''; // Initialize userChoice variable
+  let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
+
+  while (continueLoop) {
+    let userChoice = ''; // Initialize userChoice variable
 
     // Get user choice from main menu function
     userChoice = await mainMenu(); 
@@ -170,11 +177,17 @@ async function run() {
       case 'deleteEmployee':
         // Implement logic to delete an employee
         break;
+      case 'exit':
+        continueLoop = false; // Set continueLoop to false to exit the loop
+        break;
       default:
         console.log('Invalid choice');
     }
   }
 
+   // Display a message when the user exits the program
+   console.log('Exiting the program...');
+}
 run();
 
 
