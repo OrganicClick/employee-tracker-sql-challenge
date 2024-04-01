@@ -128,7 +128,26 @@ async function viewRoles() {
   } catch (error) {
     console.error('Error viewing role table:', error);
   }
-}  
+}
+
+// Function to handle adding a department
+async function addDepartment() {
+  try {
+    // Prompt the user for the department name
+    const { departmentName } = await inquirer.prompt({
+      type: 'input',
+      name: 'departmentName',
+      message: 'Enter the name of the new department:',
+    });
+
+    // Execute SQL query to insert the new department into the database
+    await db.promise().query('INSERT INTO department (department_name) VALUES (?)', [departmentName]);
+
+    console.log(`New department '${departmentName}' added successfully.`);
+  } catch (error) {
+    console.error('Error adding department:', error);
+  }
+}
 
 async function run() {
   let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
@@ -155,6 +174,7 @@ async function run() {
         break;
       case 'addDepartment':
         // Implement logic to add a department
+        await addDepartment(); // Call addDepartment function
         break;
       case 'addRole':
         // Implement logic to add a role
