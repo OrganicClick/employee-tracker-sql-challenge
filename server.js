@@ -179,6 +179,7 @@ async function deleteDepartment() {
   }
 }
 
+// Function to handle deleting roles
   async function deleteRole() {
     try {
       // Retrieve existing roles from the database
