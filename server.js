@@ -209,6 +209,38 @@ async function deleteDepartment() {
     }
   }
 
+// Function to handle deleting employees
+
+  async function deleteEmployee() {
+    try {
+      // Retrieve existing employees from the database
+      const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
+  
+      // Extract employee names from the result
+      const employeeNames = employees.map(employee => employee.full_name);
+  
+      // Prompt the user to select an employee to delete
+      const { employeeName } = await inquirer.prompt({
+        type: 'list',
+        name: 'employeeName',
+        message: 'Select the employee to delete:',
+        choices: employeeNames,
+      });
+  
+      // Find the ID of the selected employee
+      const selectedEmployee = employees.find(employee => employee.full_name === employeeName);
+      const employeeId = selectedEmployee.id;
+  
+      // Delete the selected employee from the database
+      await db.promise().query('DELETE FROM employee WHERE id = ?', [employeeId]);
+  
+      console.log(`Employee '${employeeName}' deleted successfully.`);
+    } catch (error) {
+      console.error('Error deleting employee:', error);
+    }
+  }
+  
+
 
 async function run() {
   let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
@@ -259,6 +291,7 @@ async function run() {
         break;
       case 'deleteEmployee':
         // Implement logic to delete an employee
+        await deleteEmployee(); // Call deleteEmployee function
         break;
       case 'exit':
         continueLoop = false; // Set continueLoop to false to exit the loop

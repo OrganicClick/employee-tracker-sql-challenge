@@ -14,4 +14,33 @@ async function viewEmployees() {
 like additional prompts for user to enter employee first name, last name, role id,
 and manager id. */
 
-/* deleteEmployee. Needs to be a menu selection for user to select which employee to delete.*/
+// Function to handle deleting employees
+
+async function deleteEmployee() {
+  try {
+    // Retrieve existing employees from the database
+    const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
+
+    // Extract employee names from the result
+    const employeeNames = employees.map(employee => employee.full_name);
+
+    // Prompt the user to select an employee to delete
+    const { employeeName } = await inquirer.prompt({
+      type: 'list',
+      name: 'employeeName',
+      message: 'Select the employee to delete:',
+      choices: employeeNames,
+    });
+
+    // Find the ID of the selected employee
+    const selectedEmployee = employees.find(employee => employee.full_name === employeeName);
+    const employeeId = selectedEmployee.id;
+
+    // Delete the selected employee from the database
+    await db.promise().query('DELETE FROM employee WHERE id = ?', [employeeId]);
+
+    console.log(`Employee '${employeeName}' deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting employee:', error);
+  }
+}
