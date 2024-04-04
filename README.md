@@ -62,7 +62,7 @@ THEN I am prompted to select an employee to update and their new role and this i
 
 2. Be sure to create the database named 'employeeTracker_db' as specified in the server code. This is done by first
  accessing MySQL using the 'mysql' command:
-   - mysql -u your_username -p
+   - mysql -u root -p
 
 3. Once logged in, run the following SQL command to create the database:
    - CREATE DATABASE employeeTracker_db;
