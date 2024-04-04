@@ -33,6 +33,7 @@ async function addDepartment() {
 
 /* Delete a department from the department table. Needs to provide user with prompt or list of options
 to select and run delete on*/
+
   // Function to handle deleting a department
 async function deleteDepartment() {
     try {
