@@ -188,6 +188,45 @@ async function addRole() {
   }
 }
 
+async function addEmployee() {
+  try {
+    // Retrieve existing roles from the database
+    const [roles] = await db.promise().query('SELECT id, title FROM role');
+    const roleChoices = roles.map(role => ({
+      name: role.title,
+      value: role.id
+    }));
+
+    // Prompt the user for employee details including role selection
+    const { firstName, lastName, roleId } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'firstName',
+        message: 'Enter the first name of the new employee:',
+      },
+      {
+        type: 'input',
+        name: 'lastName',
+        message: 'Enter the last name of the new employee:',
+      },
+      {
+        type: 'list',
+        name: 'roleId',
+        message: 'Select the role for the new employee:',
+        choices: roleChoices,
+      }
+    ]);
+
+    // Execute SQL query to insert the new employee into the database
+    await db.promise().query('INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)', [firstName, lastName, roleId]);
+
+    console.log(`New employee '${firstName} ${lastName}' added successfully.`);
+  } catch (error) {
+    console.error('Error adding employee:', error);
+  }
+}
+
+
 // Function to handle deleting a department
 async function deleteDepartment() {
   try {
@@ -314,6 +353,7 @@ async function run() {
         break;
       case 'addEmployee':
         // Implement logic to add an employee
+        await addEmployee();
         break;
       case 'updateEmployeeRole':
         // Implement logic to update employee role
