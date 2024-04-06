@@ -274,6 +274,48 @@ async function viewEmployeesByDepartment() {
   }
 }
 
+async function viewDepartmentBudget() {
+  try {
+    // Retrieve existing departments from the database
+    const [departments] = await db.promise().query('SELECT id, department_name FROM department');
+    const departmentChoices = departments.map(department => ({
+      name: department.department_name,
+      value: department.id
+    }));
+
+    // Prompt the user to select a department
+    const { departmentId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'departmentId',
+        message: 'Select a department to view its budget:',
+        choices: departmentChoices,
+      }
+    ]);
+
+    // Retrieve the total budget for the selected department from the database
+    const query = `
+      SELECT 
+          SUM(role.salary) AS total_budget
+      FROM 
+          employee
+      INNER JOIN 
+          role ON employee.role_id = role.id
+      WHERE 
+          role.department_id = ?;
+    `;
+    const [rows] = await db.promise().query(query, [departmentId]);
+
+    if (rows.length === 0 || rows[0].total_budget === null) {
+      console.log('No budget information found for the selected department.');
+    } else {
+      console.log(`Total budget for the selected department: $${rows[0].total_budget}`);
+    }
+  } catch (error) {
+    console.error('Error viewing budget for the selected department:', error);
+  }
+}
+
 // Function to handle adding a department
 async function addDepartment() {
   try {
@@ -550,8 +592,8 @@ async function run() {
         break;
       case 'viewDepartmentBudget':
           // Implement logic to view budget of a department
-  
-          break;
+        await viewDepartmentBudget(); // Call viewDepartmentBudget function
+        break;
       case 'addDepartment':
         // Implement logic to add a department
         await addDepartment(); // Call addDepartment function
