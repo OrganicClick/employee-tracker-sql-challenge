@@ -63,10 +63,6 @@ async function mainMenu() {
       value: 'addEmployee',
     },
     {
-      name: 'Update employee role',
-      value: 'updateEmployeeRole',
-    },
-    {
       name: 'Update employee manager',
       value: 'updateEmployeeManager',
     },
@@ -224,6 +220,7 @@ async function addRole() {
   }
 }
 
+// Function to add an employee
 async function addEmployee() {
   try {
     // Retrieve existing roles from the database
@@ -403,9 +400,6 @@ async function run() {
       case 'addEmployee':
         // Implement logic to add an employee
         await addEmployee();
-        break;
-      case 'updateEmployeeRole':
-        // Implement logic to update employee role
         break;
       case 'updateEmployeeManager':
         // Implement logic to update employee manager
