@@ -224,6 +224,57 @@ async function viewEmployeesByManager() {
   }
 }
 
+async function viewEmployeesByDepartment() {
+  try {
+    // Retrieve existing departments from the database
+    const [departments] = await db.promise().query('SELECT id, department_name FROM department');
+    const departmentChoices = departments.map(department => ({
+      name: department.department_name,
+      value: department.id
+    }));
+
+    // Prompt the user to select a department
+    const { departmentId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'departmentId',
+        message: 'Select a department to view its employees:',
+        choices: departmentChoices,
+      }
+    ]);
+
+    // Retrieve employees belonging to the selected department from the database
+    const query = `
+      SELECT 
+          employee.id,
+          employee.first_name,
+          employee.last_name,
+          role.title AS role,
+          role.salary,
+          CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+      FROM 
+          employee
+      INNER JOIN 
+          role ON employee.role_id = role.id
+      LEFT JOIN 
+          department ON role.department_id = department.id
+      LEFT JOIN 
+          employee manager ON employee.manager_id = manager.id
+      WHERE 
+          department.id = ?;
+    `;
+    const [rows] = await db.promise().query(query, [departmentId]);
+
+    if (rows.length === 0) {
+      console.log('No employees found in the selected department.');
+    } else {
+      console.log(`Employees in the selected department:`);
+      console.table(rows);
+    }
+  } catch (error) {
+    console.error('Error viewing employees in the selected department:', error);
+  }
+}
 
 // Function to handle adding a department
 async function addDepartment() {
@@ -468,7 +519,6 @@ async function deleteDepartment() {
   }
   
 
-
 async function run() {
   let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
 
@@ -498,7 +548,7 @@ async function run() {
         break;
       case 'viewEmployeesByDepartment':
         // Implement logic to view employees by department
-
+        await viewEmployeesByDepartment()// Call viewEmployeesByDepartment function
         break;
       case 'viewDepartmentBudget':
           // Implement logic to view budget of a department
