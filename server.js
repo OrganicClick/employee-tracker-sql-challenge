@@ -59,6 +59,10 @@ async function mainMenu() {
       value: 'viewEmployeesDepartment',
     },
     {
+      name: 'View budget of department',
+      value: 'viewDepartmentBudget',
+    },
+    {
       name: 'Add department',
       value: 'addDepartment',
     },
@@ -405,6 +409,10 @@ async function run() {
         // Implement logic to view employees by department
 
         break;
+      case 'viewDepartmentBudget':
+          // Implement logic to view budget of a department
+  
+          break;
       case 'addDepartment':
         // Implement logic to add a department
         await addDepartment(); // Call addDepartment function
