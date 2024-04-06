@@ -70,15 +70,18 @@ THEN I am prompted to select an employee to update and their new role and this i
 4. Run the following SQL command to load the schema.sql file
    - SOURCE path/to/schema.sql
 
-4. Exit MySQL
+5. (Optional) To seed the database with some data you, you can use the following SQL command to load the seeds.sql file
+   - SOURCE path/to/seeds.sql
+
+6. Exit MySQL
 
 
-5. Run the application from the command line:
+7. Run the application from the command line:
    - node server.js
 
-6. To terminate the application, select "Exit" from the menu of options
+8. To terminate the application, select "Exit" from the menu of options
 
-7. Currently, you will need to clear the line of your CLI in order to end the session of node.js server and restart the server by running "node server.js" to restart the application.
+9. Currently, you will need to clear the line of your CLI in order to end the session of node.js server and restart the server by running "node server.js" to restart the application.
 
 
 ## Contributing
