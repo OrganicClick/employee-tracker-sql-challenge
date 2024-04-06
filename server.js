@@ -114,13 +114,30 @@ async function viewDepartments() {
 // Function for viewing employees
 async function viewEmployees() {
   try {
-    const [rows] = await db.promise().query('SELECT * FROM employee');
-    console.log('Employee Table:');
+    const query = `
+      SELECT 
+          employee.id,
+          employee.first_name,
+          employee.last_name,
+          role.title AS role,
+          role.salary,
+          CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+      FROM 
+          employee
+      INNER JOIN 
+          role ON employee.role_id = role.id
+      LEFT JOIN 
+          employee manager ON employee.manager_id = manager.id;
+    `;
+
+    const [rows] = await db.promise().query(query);
+    console.log('Employees Table:');
     console.table(rows);
   } catch (error) {
     console.error('Error viewing employee table:', error);
   }
 }
+
 
 // viewRoles() function to include the salary
 async function viewRoles() {
