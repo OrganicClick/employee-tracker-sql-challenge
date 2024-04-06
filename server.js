@@ -119,6 +119,29 @@ async function viewDepartments() {
   }
 }
 
+// viewRoles() function to include the salary
+async function viewRoles() {
+  try {
+    const query = `
+      SELECT 
+          role.id,
+          role.title,
+          role.salary,
+          department.department_name AS department
+      FROM 
+          role
+      LEFT JOIN
+          department ON role.department_id = department.id;
+    `;
+
+    const [rows] = await db.promise().query(query);
+    console.log('Roles Table:');
+    console.table(rows);
+  } catch (error) {
+    console.error('Error viewing role table:', error);
+  }
+}
+
 // Function for viewing employees
 async function viewEmployees() {
   try {
@@ -146,31 +169,6 @@ async function viewEmployees() {
     console.table(rows);
   } catch (error) {
     console.error('Error viewing employee table:', error);
-  }
-}
-
-
-
-// viewRoles() function to include the salary
-async function viewRoles() {
-  try {
-    const query = `
-      SELECT 
-          role.id,
-          role.title,
-          role.salary,
-          department.department_name AS department
-      FROM 
-          role
-      LEFT JOIN
-          department ON role.department_id = department.id;
-    `;
-
-    const [rows] = await db.promise().query(query);
-    console.log('Roles Table:');
-    console.table(rows);
-  } catch (error) {
-    console.error('Error viewing role table:', error);
   }
 }
 
