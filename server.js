@@ -284,6 +284,46 @@ async function addEmployee() {
   }
 }
 
+async function updateEmployeeManager() {
+  try {
+    // Retrieve existing employees from the database
+    const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
+    const employeeChoices = employees.map(employee => ({
+      name: employee.full_name,
+      value: employee.id
+    }));
+
+    // Prompt the user to select an employee whose manager they want to update
+    const { employeeId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'employeeId',
+        message: 'Select the employee whose manager you want to update:',
+        choices: employeeChoices,
+      }
+    ]);
+
+    // Remove the selected employee from the list of potential managers
+    const managerChoices = employeeChoices.filter(employee => employee.value !== employeeId);
+
+    // Prompt the user to select a new manager for the selected employee
+    const { managerId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'managerId',
+        message: 'Select the new manager for the employee:',
+        choices: managerChoices,
+      }
+    ]);
+
+    // Execute SQL query to update the manager for the selected employee
+    await db.promise().query('UPDATE employee SET manager_id = ? WHERE id = ?', [managerId, employeeId]);
+
+    console.log(`New manager assigned successfully for the selected employee.`);
+  } catch (error) {
+    console.error('Error assigning new manager:', error);
+  }
+}
 
 // Function to handle deleting a department
 async function deleteDepartment() {
@@ -426,7 +466,7 @@ async function run() {
         await addEmployee();
         break;
       case 'updateEmployeeManager':
-        // Implement logic to update employee manager
+        await updateEmployeeManager()// Implement logic to update employee manager
         break;
       case 'deleteDepartment':
         // Implement logic to delete a department
