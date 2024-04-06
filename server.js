@@ -79,6 +79,10 @@ async function mainMenu() {
       value: 'updateEmployeeManager',
     },
     {
+      name: 'Update employee role',
+      value: 'updateEmployeeRole',
+    },
+    {
       name: 'Delete department',
       value: 'deleteDepartment',
     },
@@ -467,6 +471,52 @@ async function updateEmployeeManager() {
   }
 }
 
+async function updateEmployeeRole() {
+  try {
+    // Retrieve existing employees from the database
+    const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
+    const employeeChoices = employees.map(employee => ({
+      name: employee.full_name,
+      value: employee.id
+    }));
+
+    // Prompt the user to select an employee to update their role
+    const { employeeId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'employeeId',
+        message: 'Select the employee whose role you want to update:',
+        choices: employeeChoices,
+      }
+    ]);
+
+    // Retrieve existing roles from the database
+    const [roles] = await db.promise().query('SELECT id, title FROM role');
+    const roleChoices = roles.map(role => ({
+      name: role.title,
+      value: role.id
+    }));
+
+    // Prompt the user to select a new role for the employee
+    const { roleId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'roleId',
+        message: 'Select the new role for the employee:',
+        choices: roleChoices,
+      }
+    ]);
+
+    // Execute SQL query to update the role for the selected employee
+    await db.promise().query('UPDATE employee SET role_id = ? WHERE id = ?', [roleId, employeeId]);
+
+    console.log(`Employee's role updated successfully.`);
+  } catch (error) {
+    console.error('Error updating employee role:', error);
+  }
+}
+
+
 // Function to handle deleting a department
 async function deleteDepartment() {
   try {
@@ -608,6 +658,9 @@ async function run() {
         break;
       case 'updateEmployeeManager':
         await updateEmployeeManager()// Implement logic to update employee manager
+        break;
+      case 'updateEmployeeRole':
+        await updateEmployeeRole()// Implement logic to update employee's role
         break;
       case 'deleteDepartment':
         // Implement logic to delete a department
