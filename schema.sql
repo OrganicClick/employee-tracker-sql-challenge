@@ -16,16 +16,19 @@ CREATE TABLE department (
 -- Create a table named role
 CREATE TABLE role (
     id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incremented unique identifier
-    title VARCHAR(30) NOT NULL,     -- Title of the role
-    salary DECIMAL NOT NULL,        -- Salary associated with the role
-    department_id INT               -- Reference to department
+    title VARCHAR(100) NOT NULL,        -- Title of the role
+    salary DECIMAL(10, 2) NOT NULL,     -- Salary for the role
+    department_id INT,                  -- Reference to department
+    FOREIGN KEY (department_id) REFERENCES department(id)
 );
 
 -- Create a table named employee
 CREATE TABLE employee (
-    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incremented unique identifier
-    first_name VARCHAR(30) NOT NULL,-- First name of the employee
-    last_name VARCHAR(30) NOT NULL, -- Last name of the employee
-    role_id INT,                    -- Reference to role
-    manager_id INT                  -- Reference to manager
+    id INT AUTO_INCREMENT PRIMARY KEY,          -- Auto-incremented unique identifier
+    first_name VARCHAR(30) NOT NULL,            -- First name of the employee
+    last_name VARCHAR(30) NOT NULL,             -- Last name of the employee
+    role_id INT,                                -- Reference to role
+    manager_id INT,                             -- Reference to manager
+    FOREIGN KEY (role_id) REFERENCES role(id),
+    FOREIGN KEY (manager_id) REFERENCES employee(id)
 );

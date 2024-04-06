@@ -1,17 +1,17 @@
 -- Insert sample data into the department table
-INSERT INTO department (id, department_name) VALUES
-(1, 'Human Resources'),
-(2, 'Finance'),
-(3, 'IT');
+INSERT INTO department (department_name) VALUES
+('Human Resources'),
+('Finance'),
+('IT');
 
 -- Insert sample data into the role table
-INSERT INTO role (id, title, salary, department_id) VALUES
-(1, 'HR Manager', 60000, 1),
-(2, 'Accountant', 50000, 2),
-(3, 'Software Engineer', 80000, 3);
+INSERT INTO role (title, salary, department_id) VALUES
+('HR Manager', 60000, 1),     -- Department ID for Human Resources is 1
+('Accountant', 50000, 2),     -- Department ID for Finance is 2
+('Software Engineer', 80000, 3); -- Department ID for IT is 3
 
 -- Insert sample data into the employee table
-INSERT INTO employee (id, first_name, last_name, role_id, manager_id) VALUES
-(1, 'John', 'Doe', 1, NULL),
-(2, 'Jane', 'Smith', 2, 1),
-(3, 'Michael', 'Johnson', 3, 1);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES
+('John', 'Doe', 1, NULL),    -- John Doe is HR Manager (role ID 1) and has no manager
+('Jane', 'Smith', 2, 1),     -- Jane Smith is Accountant (role ID 2) and her manager is John Doe
+('Michael', 'Johnson', 3, 1); -- Michael Johnson is Software Engineer (role ID 3) and his manager is John Doe
