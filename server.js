@@ -51,6 +51,10 @@ async function mainMenu() {
       value: 'viewEmployees',
     },
     {
+      name: 'View employees by manager',
+      value: 'viewEmployeesManager',
+    },
+    {
       name: 'Add department',
       value: 'addDepartment',
     },
@@ -388,6 +392,10 @@ async function run() {
       case 'viewEmployees':
         // Implement logic to view employees
         await viewEmployees(); // Call viewEmployees function
+        break;
+      case 'viewEmployeesManager':
+        // Implement logic to view employees by manager
+        await viewEmployeesManager(); // Call viewEmployeesManager function
         break;
       case 'addDepartment':
         // Implement logic to add a department
