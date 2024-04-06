@@ -128,6 +128,7 @@ Development was assisted by the following resources:
  - Referenced for resetting root mysql password (https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11)
  - Using Javascript Switch statements, including break and case (https://www.w3schools.com/js/js_switch.asp)
  - Referenced for syntax/structure of node.js functions for MySQL actions (e.g. Viewing, adding, deleting entries/tables from database) (https://github.com/EdenKhaos/12-mysql-employee-tracker/blob/master/server.js)
+ - ChatGPT for assistance with functionality for updating employee manager, viewing employees by manager, viewing employees by department, and view the total budget of a department (https://chat.openai.com/auth/login?utm_source=SEO&utm_medium=Clic&utm_campaign=google&utm_id=ChatGPT)
 
 ## Contact
 To contact the owner of this repo, OrganicClick, please reach out via OrganicClick@exampleemail.com
