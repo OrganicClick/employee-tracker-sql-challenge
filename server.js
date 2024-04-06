@@ -100,6 +100,7 @@ const { choice } = await inquirer.prompt({
 return choice;
 }
 
+// Function for viewing departments
 async function viewDepartments() {
   try {
     const [rows] = await db.promise().query('SELECT * FROM department');
@@ -110,6 +111,7 @@ async function viewDepartments() {
   }
 }
 
+// Function for viewing employees
 async function viewEmployees() {
   try {
     const [rows] = await db.promise().query('SELECT * FROM employee');
@@ -120,9 +122,22 @@ async function viewEmployees() {
   }
 }
 
+// viewRoles() function to include the salary
 async function viewRoles() {
   try {
-    const [rows] = await db.promise().query('SELECT * FROM role');
+    const query = `
+      SELECT 
+          role.id,
+          role.title,
+          role.salary,
+          department.department_name AS department
+      FROM 
+          role
+      LEFT JOIN
+          department ON role.department_id = department.id;
+    `;
+
+    const [rows] = await db.promise().query(query);
     console.log('Roles Table:');
     console.table(rows);
   } catch (error) {
