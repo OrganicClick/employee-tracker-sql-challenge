@@ -233,8 +233,15 @@ async function addEmployee() {
       value: role.id
     }));
 
-    // Prompt the user for employee details including role selection
-    const { firstName, lastName, roleId } = await inquirer.prompt([
+    // Retrieve existing employees from the database to select the manager
+    const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
+    const employeeChoices = employees.map(employee => ({
+      name: employee.full_name,
+      value: employee.id
+    }));
+
+    // Prompt the user for employee details including role selection and manager selection
+    const { firstName, lastName, roleId, managerId } = await inquirer.prompt([
       {
         type: 'input',
         name: 'firstName',
@@ -250,11 +257,17 @@ async function addEmployee() {
         name: 'roleId',
         message: 'Select the role for the new employee:',
         choices: roleChoices,
+      },
+      {
+        type: 'list',
+        name: 'managerId',
+        message: 'Select the manager for the new employee:',
+        choices: employeeChoices,
       }
     ]);
 
     // Execute SQL query to insert the new employee into the database
-    await db.promise().query('INSERT INTO employee (first_name, last_name, role_id) VALUES (?, ?, ?)', [firstName, lastName, roleId]);
+    await db.promise().query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [firstName, lastName, roleId, managerId]);
 
     console.log(`New employee '${firstName} ${lastName}' added successfully.`);
   } catch (error) {
