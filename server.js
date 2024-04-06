@@ -52,11 +52,11 @@ async function mainMenu() {
     },
     {
       name: 'View employees by manager',
-      value: 'viewEmployeesManager',
+      value: 'viewEmployeesByManager',
     },
     {
       name: 'View employees by department',
-      value: 'viewEmployeesDepartment',
+      value: 'viewEmployeesByDepartment',
     },
     {
       name: 'View budget of department',
@@ -173,6 +173,57 @@ async function viewRoles() {
     console.error('Error viewing role table:', error);
   }
 }
+
+async function viewEmployeesByManager() {
+  try {
+    // Retrieve existing managers from the database
+    const [managers] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee WHERE id IN (SELECT DISTINCT manager_id FROM employee WHERE manager_id IS NOT NULL)');
+    const managerChoices = managers.map(manager => ({
+      name: manager.full_name,
+      value: manager.id
+    }));
+
+    // Prompt the user to select a manager
+    const { managerId } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'managerId',
+        message: 'Select a manager to view their direct reports:',
+        choices: managerChoices,
+      }
+    ]);
+
+    // Retrieve employees reporting to the selected manager from the database
+    const query = `
+      SELECT 
+          employee.id,
+          employee.first_name,
+          employee.last_name,
+          role.title AS role,
+          role.salary,
+          department.department_name AS department
+      FROM 
+          employee
+      INNER JOIN 
+          role ON employee.role_id = role.id
+      LEFT JOIN 
+          department ON role.department_id = department.id
+      WHERE 
+          employee.manager_id = ?;
+    `;
+    const [rows] = await db.promise().query(query, [managerId]);
+
+    if (rows.length === 0) {
+      console.log('No direct reports found for the selected manager.');
+    } else {
+      console.log(`Employees reporting to the selected manager:`);
+      console.table(rows);
+    }
+  } catch (error) {
+    console.error('Error viewing employees reporting to the selected manager:', error);
+  }
+}
+
 
 // Function to handle adding a department
 async function addDepartment() {
@@ -441,11 +492,11 @@ async function run() {
         // Implement logic to view employees
         await viewEmployees(); // Call viewEmployees function
         break;
-      case 'viewEmployeesManager':
+      case 'viewEmployeesByManager':
         // Implement logic to view employees by manager
-
+        await viewEmployeesByManager(); // Call viewEmployeesByManager function
         break;
-      case 'viewEmployeesDepartment':
+      case 'viewEmployeesByDepartment':
         // Implement logic to view employees by department
 
         break;
