@@ -521,6 +521,9 @@ async function updateEmployeeRole() {
 
 async function deleteDepartment() {
   try {
+    // Disable foreign key checks temporarily
+    await db.promise().query('SET FOREIGN_KEY_CHECKS = 0');
+
     // Retrieve existing departments from the database
     const [departments] = await db.promise().query('SELECT id, department_name FROM department');
 
@@ -553,6 +556,14 @@ async function deleteDepartment() {
     await db.promise().query('DELETE FROM department WHERE id = ?', [departmentId]);
 
     console.log(`Department '${departmentName}' deleted successfully.`);
+
+    // Delete roles associated with the department
+    await db.promise().query('DELETE FROM role WHERE department_id = ?', [departmentId]);
+
+    console.log(`Roles associated with department '${departmentName}' deleted successfully.`);
+    
+    // Re-enable foreign key checks
+    await db.promise().query('SET FOREIGN_KEY_CHECKS = 1');
   } catch (error) {
     console.error('Error deleting department:', error);
   }
