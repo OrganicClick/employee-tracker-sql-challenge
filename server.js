@@ -569,36 +569,46 @@ async function deleteDepartment() {
   }
 }
 
-
 // Function to handle deleting roles
-  async function deleteRole() {
-    try {
-      // Retrieve existing roles from the database
-      const [roles] = await db.promise().query('SELECT id, title FROM role');
+async function deleteRole() {
+  try {
+    // Retrieve existing roles from the database
+    const [roles] = await db.promise().query('SELECT id, title FROM role');
 
-      // Extract role titles from the result
-      const roleTitles = roles.map(role => role.title);
+    // Extract role titles from the result
+    const roleTitles = roles.map(role => role.title);
 
-      // Prompt the user to select a role to delete
-      const { roleName } = await inquirer.prompt({
-        type: 'list',
-        name: 'roleName',
-        message: 'Select the role to delete:',
-        choices: roleTitles,
-      });
+    // Prompt the user to select a role to delete
+    const { roleName } = await inquirer.prompt({
+      type: 'list',
+      name: 'roleName',
+      message: 'Select the role to delete:',
+      choices: roleTitles,
+    });
 
-      // Find the ID of the selected role
-      const selectedRole = roles.find(role => role.title === roleName);
-      const roleId = selectedRole.id;
+    // Find the ID of the selected role
+    const selectedRole = roles.find(role => role.title === roleName);
+    const roleId = selectedRole.id;
 
-      // Delete the selected role from the database
-      await db.promise().query('DELETE FROM role WHERE id = ?', [roleId]);
+    // Check if there are any employees with the selected role
+    const [employeesWithRole] = await db.promise().query('SELECT COUNT(*) AS count FROM employee WHERE role_id = ?', [roleId]);
+    const employeeCount = employeesWithRole[0].count;
 
-      console.log(`Role '${roleName}' deleted successfully.`);
-    } catch (error) {
-      console.error('Error deleting role:', error);
+    if (employeeCount > 0) {
+      // Inform the user that there are employees associated with the role
+      console.log(`Cannot delete role '${roleName}' because it still has ${employeeCount} employee(s) associated with it.`);
+      console.log('Please update the role for these employees or delete them before deleting the role.');
+      return;
     }
+
+    // If there are no employees associated with the role, proceed with deletion
+    await db.promise().query('DELETE FROM role WHERE id = ?', [roleId]);
+
+    console.log(`Role '${roleName}' deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting role:', error);
   }
+}
 
 // Function to handle deleting employees
 
