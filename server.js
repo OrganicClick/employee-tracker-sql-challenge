@@ -430,6 +430,7 @@ async function addEmployee() {
   }
 }
 
+// Function to update an employee manager.
 async function updateEmployeeManager() {
   try {
     // Retrieve existing employees from the database
@@ -516,6 +517,8 @@ async function updateEmployeeRole() {
   }
 }
 
+//Function to handle deleting a department. User's will have to ensure the department is empty prior to deleting the department.
+
 async function deleteDepartment() {
   try {
     // Retrieve existing departments from the database
@@ -588,35 +591,44 @@ async function deleteDepartment() {
 
 // Function to handle deleting employees
 
-  async function deleteEmployee() {
-    try {
-      // Retrieve existing employees from the database
-      const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name FROM employee');
-  
-      // Extract employee names from the result
-      const employeeNames = employees.map(employee => employee.full_name);
-  
-      // Prompt the user to select an employee to delete
-      const { employeeName } = await inquirer.prompt({
-        type: 'list',
-        name: 'employeeName',
-        message: 'Select the employee to delete:',
-        choices: employeeNames,
-      });
-  
-      // Find the ID of the selected employee
-      const selectedEmployee = employees.find(employee => employee.full_name === employeeName);
-      const employeeId = selectedEmployee.id;
-  
-      // Delete the selected employee from the database
-      await db.promise().query('DELETE FROM employee WHERE id = ?', [employeeId]);
-  
-      console.log(`Employee '${employeeName}' deleted successfully.`);
-    } catch (error) {
-      console.error('Error deleting employee:', error);
+async function deleteEmployee() {
+  try {
+    // Retrieve existing employees from the database
+    const [employees] = await db.promise().query('SELECT id, CONCAT(first_name, " ", last_name) AS full_name, manager_id FROM employee');
+
+    // Extract employee names from the result
+    const employeeNames = employees.map(employee => employee.full_name);
+
+    // Prompt the user to select an employee to delete
+    const { employeeName } = await inquirer.prompt({
+      type: 'list',
+      name: 'employeeName',
+      message: 'Select the employee to delete:',
+      choices: employeeNames,
+    });
+
+    // Find the ID and manager ID of the selected employee
+    const selectedEmployee = employees.find(employee => employee.full_name === employeeName);
+    const employeeId = selectedEmployee.id;
+    const managerId = selectedEmployee.manager_id;
+
+    // Check if the selected employee is managing other employees
+    const employeesManagedBySelected = employees.filter(employee => employee.manager_id === employeeId);
+
+    if (employeesManagedBySelected.length > 0) {
+      // Inform the user that the selected employee is managing other employees
+      console.log(`Cannot delete ${employeeName} because they are managing ${employeesManagedBySelected.length} employee(s). Please transfer the managed employees to a new manager before deleting.`);
+      return;
     }
+
+    // If the selected employee is not managing other employees, proceed with deletion
+    await db.promise().query('DELETE FROM employee WHERE id = ?', [employeeId]);
+
+    console.log(`Employee '${employeeName}' deleted successfully.`);
+  } catch (error) {
+    console.error('Error deleting employee:', error);
   }
-  
+} 
 
 async function run() {
   let continueLoop = true; // Variable to control the loop. This allows user to go back to menu after selecting their option.
