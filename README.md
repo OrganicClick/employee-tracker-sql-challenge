@@ -17,7 +17,6 @@
 
 This project is part of the SQL module and involves creating an Employee Tracker application using SQL databases. The Employee Tracker allows users to manage a company's employee database by performing various operations such as viewing employees, roles, and departments, adding new employees, updating employee roles, and deleting employees.
 
-
 ## User Story
 AS A business owner
 I WANT to be able to view and manage the departments, roles, and employees in my company
@@ -74,7 +73,6 @@ THEN I am prompted to select an employee to update and their new role and this i
    - SOURCE path/to/seeds.sql
 
 6. Exit MySQL
-
 
 7. Run the application from the command line:
    - node server.js
