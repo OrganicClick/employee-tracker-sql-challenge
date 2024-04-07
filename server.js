@@ -516,8 +516,6 @@ async function updateEmployeeRole() {
   }
 }
 
-
-// Function to handle deleting a department
 async function deleteDepartment() {
   try {
     // Retrieve existing departments from the database
@@ -538,7 +536,17 @@ async function deleteDepartment() {
     const selectedDepartment = departments.find(department => department.department_name === departmentName);
     const departmentId = selectedDepartment.id;
 
-    // Delete the selected department from the database
+    // Check if there are any employees associated with the selected department
+    const [employeesInDepartment] = await db.promise().query('SELECT COUNT(*) AS count FROM employee WHERE department_id = ?', [departmentId]);
+    const employeeCount = employeesInDepartment[0].count;
+
+    if (employeeCount > 0) {
+      // Inform the user that there are employees associated with the department
+      console.log(`Cannot delete department '${departmentName}' because it still has ${employeeCount} employee(s) associated with it.`);
+      return;
+    }
+
+    // If there are no employees associated with the department, proceed with deletion
     await db.promise().query('DELETE FROM department WHERE id = ?', [departmentId]);
 
     console.log(`Department '${departmentName}' deleted successfully.`);
@@ -546,6 +554,7 @@ async function deleteDepartment() {
     console.error('Error deleting department:', error);
   }
 }
+
 
 // Function to handle deleting roles
   async function deleteRole() {
